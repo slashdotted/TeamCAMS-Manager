@@ -1,0 +1,117 @@
+<RCC>
+    <qresource prefix="/"/>
+    <qresource prefix="/scripts">
+        <file alias="cams.js">scripts/cams.js</file>
+        <file alias="cooler_ineffective_fault.js">scripts/cooler_ineffective_fault.js</file>
+        <file alias="cooler_sensor_fault.js">scripts/cooler_sensor_fault.js</file>
+        <file alias="cooler_stuckon_fault.js">scripts/cooler_stuckon_fault.js</file>
+        <file alias="dehumidifier_ineffective_fault.js">scripts/dehumidifier_ineffective_fault.js</file>
+        <file alias="dehumidifier_stuckon_fault.js">scripts/dehumidifier_stuckon_fault.js</file>
+        <file alias="fault_definitions.js">scripts/fault_definitions.js</file>
+        <file alias="heater_ineffective_fault.js">scripts/heater_ineffective_fault.js</file>
+        <file alias="heater_sensor_fault.js">scripts/heater_sensor_fault.js</file>
+        <file alias="heater_stuckon_fault.js">scripts/heater_stuckon_fault.js</file>
+        <file alias="humidity_sensor_fault.js">scripts/humidity_sensor_fault.js</file>
+        <file alias="mixer_block_fault.js">scripts/mixer_block_fault.js</file>
+        <file alias="nitrogen_block_fault.js">scripts/nitrogen_block_fault.js</file>
+        <file alias="nitrogen_leak_fault.js">scripts/nitrogen_leak_fault.js</file>
+        <file alias="nitrogen_stuckopen_fault.js">scripts/nitrogen_stuckopen_fault.js</file>
+        <file alias="oxygen_block_fault.js">scripts/oxygen_block_fault.js</file>
+        <file alias="oxygen_leak_fault.js">scripts/oxygen_leak_fault.js</file>
+        <file alias="oxygen_sensor_fault.js">scripts/oxygen_sensor_fault.js</file>
+        <file alias="oxygen_stuckopen_fault.js">scripts/oxygen_stuckopen_fault.js</file>
+        <file alias="pressure_sensor_fault.js">scripts/pressure_sensor_fault.js</file>
+        <file alias="scrubber_ineffective_fault.js">scripts/scrubber_ineffective_fault.js</file>
+        <file alias="scrubber_sensor_fault.js">scripts/scrubber_sensor_fault.js</file>
+        <file alias="scrubber_stuckon_fault.js">scripts/scrubber_stuckon_fault.js</file>
+        <file alias="vent_ineffective_fault.js">scripts/vent_ineffective_fault.js</file>
+        <file alias="vent_sensor_fault.js">scripts/vent_sensor_fault.js</file>
+        <file alias="vent_stuckon_fault.js">scripts/vent_stuckon_fault.js</file>
+        <file alias="secondary_tasks.js">scripts/secondary_tasks.js</file>
+        <file alias="automation.js">scripts/automation.js</file>
+        <file alias="adaptive.js">scripts/adaptive.js</file>
+        <file alias="interface.js">scripts/interface.js</file>
+        <file alias="tutorial.js">scripts/tutorial.js</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="edit-delete.png">images/edit-delete.png</file>
+        <file alias="icon.png">images/icon.png</file>
+        <file alias="list-add.png">images/list-add.png</file>
+        <file alias="list-remove.png">images/list-remove.png</file>
+        <file alias="media-playback-pause.png">images/media-playback-pause.png</file>
+        <file alias="media-playback-start.png">images/media-playback-start.png</file>
+        <file alias="media-playback-stop.png">images/media-playback-stop.png</file>
+        <file alias="process-stop.png">images/process-stop.png</file>
+        <file alias="system-log-out.png">images/system-log-out.png</file>
+        <file alias="system-run.png">images/system-run.png</file>
+        <file alias="view-refresh.png">images/view-refresh.png</file>
+        <file alias="user-offline.png">images/user-offline.png</file>
+        <file alias="user-available.png">images/user-available.png</file>
+        <file alias="File.png">images/File.png</file>
+        <file alias="Duplicate.png">images/Duplicate.png</file>
+        <file alias="media-playback-toggle.png">images/media-playback-toggle.png</file>
+        <file alias="user-available-web.png">images/user-available-web.png</file>
+        <file alias="inverted_edit-delete.png">images/inverted_edit-delete.png</file>
+        <file alias="inverted_icon.png">images/inverted_icon.png</file>
+        <file alias="inverted_list-add.png">images/inverted_list-add.png</file>
+        <file alias="inverted_list-remove.png">images/inverted_list-remove.png</file>
+        <file alias="inverted_media-playback-pause.png">images/inverted_media-playback-pause.png</file>
+        <file alias="inverted_media-playback-start.png">images/inverted_media-playback-start.png</file>
+        <file alias="inverted_media-playback-stop.png">images/inverted_media-playback-stop.png</file>
+        <file alias="inverted_process-stop.png">images/inverted_process-stop.png</file>
+        <file alias="inverted_system-log-out.png">images/inverted_system-log-out.png</file>
+        <file alias="inverted_system-run.png">images/inverted_system-run.png</file>
+        <file alias="inverted_view-refresh.png">images/inverted_view-refresh.png</file>
+        <file alias="inverted_user-offline.png">images/inverted_user-offline.png</file>
+        <file alias="inverted_user-available.png">images/inverted_user-available.png</file>
+        <file alias="inverted_File.png">images/inverted_File.png</file>
+        <file alias="inverted_Duplicate.png">images/inverted_Duplicate.png</file>
+        <file alias="inverted_media-playback-toggle.png">images/inverted_media-playback-toggle.png</file>
+        <file alias="inverted_user-available-web.png">images/inverted_user-available-web.png</file>
+        <file alias="inverted_menu.png">images/inverted_menu.png</file>
+        <file alias="menu.png">images/menu.png</file>
+        <file alias="help.png">images/help.png</file>
+    </qresource>
+    <qresource prefix="/testscripts">
+        <file>testscripts/test_cool_ineff_fault.xml</file>
+        <file>testscripts/test_cool_sensor_fault_lower.xml</file>
+        <file>testscripts/test_cool_sensor_fault_upper.xml</file>
+        <file>testscripts/test_cool_sensor_fault.xml</file>
+        <file>testscripts/test_cool_stuck_on_fault.xml</file>
+        <file>testscripts/test_dehum_ineff_fault.xml</file>
+        <file>testscripts/test_dehum_sensor_fault_lower.xml</file>
+        <file>testscripts/test_dehum_sensor_fault_upper.xml</file>
+        <file>testscripts/test_dehumidifier_sensor_fault.xml</file>
+        <file>testscripts/test_dehumidifier_stuck_on_fault.xml</file>
+        <file>testscripts/test_error_clear.xml</file>
+        <file>testscripts/test_error_diagnostic_miss.xml</file>
+        <file>testscripts/test_heat_ineff_fault.xml</file>
+        <file>testscripts/test_heat_sensor_fault_lower.xml</file>
+        <file>testscripts/test_heat_sensor_fault_upper.xml</file>
+        <file>testscripts/test_heat_sensor_fault.xml</file>
+        <file>testscripts/test_heater_stuck_on_fault.xml</file>
+        <file>testscripts/test_mixer_block_fault.xml</file>
+        <file>testscripts/test_ni_sensor_fault_lower.xml</file>
+        <file>testscripts/test_ni_sensor_fault_upper.xml</file>
+        <file>testscripts/test_ni_sensor_fault.xml</file>
+        <file>testscripts/test_ni_valve_block_fault.xml</file>
+        <file>testscripts/test_ni_valve_leak_fault.xml</file>
+        <file>testscripts/test_ni_valve_stuck_open_fault.xml</file>
+        <file>testscripts/test_ox_sensor_fault_lower.xml</file>
+        <file>testscripts/test_ox_sensor_fault_upper.xml</file>
+        <file>testscripts/test_ox_sensor_fault.xml</file>
+        <file>testscripts/test_ox_valve_block_fault.xml</file>
+        <file>testscripts/test_ox_valve_leak_fault.xml</file>
+        <file>testscripts/test_ox_valve_stuck_open_fault.xml</file>
+        <file>testscripts/test_scrub_ineff_fault.xml</file>
+        <file>testscripts/test_scrub_sensor_fault_lower.xml</file>
+        <file>testscripts/test_scrub_sensor_fault_upper.xml</file>
+        <file>testscripts/test_scrub_stuck_on_fault.xml</file>
+        <file>testscripts/test_scrubber_sensor_fault.xml</file>
+        <file>testscripts/test_vent_ineff_fault.xml</file>
+        <file>testscripts/test_vent_sensor_fault_lower.xml</file>
+        <file>testscripts/test_vent_sensor_fault_upper.xml</file>
+        <file>testscripts/test_vent_sensor_fault.xml</file>
+        <file>testscripts/test_vent_stuck_on_fault.xml</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<script adaptive="false" adaptiveControl="" adaptiveControlMaxChange="0" reactionbaselinelogging="0" reactionbaselineloggingduringfault="0" reactionbaselinetransmission="0" reactionbaselinetransmissionDuringFault="0" reactiontimeloggingpredefinedintervals_a="0" reactiontimeloggingpredefinedintervals_b="0" reactiontimeloggingpredefinedintervals_c="0" reactiontimeloggingpredefinedintervals_d="0" reactiontimeloggingpredefinedintervals_e="0" reactiontimetransmissionpredefinedintervals_a="0" reactiontimetransmissionpredefinedintervals_b="0" reactiontimetransmissionpredefinedintervals_c="0" reactiontimetransmissionpredefinedintervals_d="0" reactiontimetransmissionpredefinedintervals_e="0">
+    <duration seconds="300"/>
+    <assistance start="0" type="loa5"/>
+    <code start="0">
+        execution.speed(5000)
+</code>
+    <error start="1" allowLateRepair="true" clear="200" diagnostics="true" type="dehum_sensor_upper"/>
+    <code start="45">
+    verifyErrorCondition(&quot;HumiditySensorFaultUpper&quot;)
+    if (registry.get(&quot;components.cabin.humidity&quot;) &lt;= 42.0) {
+        logging.critical(&quot;Value not outside valid range&quot;)
+    }
+    triggers.processTriggers(&quot;loa accept&quot;)
+</code>
+    <code start="299">
+	verifySystemIsNormal()
+</code>
+</script>

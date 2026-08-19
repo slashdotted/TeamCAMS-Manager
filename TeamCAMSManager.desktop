@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=TeamCAMSManager
+Comment=TeamCAMS Manager
+Exec=TeamCAMSManager
+Icon=teamcamsmanager
+Categories=Utility;
+Terminal=false

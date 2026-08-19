@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<script>
+<!-- Test setup -->
+<duration seconds="300"/>
+<code start="0">
+	execution.speed(5000)
+</code>
+<assistance typ="loa5" start="0"/>
+<!-- Error definition -->
+<error start="1" typ="ox_valve_leak" diagnostics="miss" clear="200" allowLateRepair="true"/>
+<!-- Start repair through LOA5 -->
+<code start="45">
+        assertProperty(&quot;system.error.fake&quot;, 0)
+        assertProperty(&quot;system.error.detected&quot;, false)
+        assertProperty(&quot;system.error.alarm&quot;, false)
+        triggers.processTriggers(&quot;loa accept&quot;)
+</code>
+<!-- Check that error is gone -->
+<code start="299">
+        assertProperty(&quot;system.error&quot;, &quot;&quot;)
+        assertProperty(&quot;system.error.label&quot;, &quot;&quot;)
+        assertProperty(&quot;system.repair.label&quot;, &quot;&quot;)
+        assertProperty(&quot;system.repair.fault&quot;, &quot;&quot;)
+</code>
+</script>

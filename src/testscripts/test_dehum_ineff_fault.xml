@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<script>
+<!-- Test setup -->
+<duration seconds="300"/>
+<code start="0">
+	execution.speed(5000)
+</code>
+<assistance typ="loa5" start="0"/>
+<!-- Error definition -->
+<error start="1" typ="dehum_ineff" efficiency="0.25" diagnostics="true" clear="200" allowLateRepair="true"/>
+<!-- Start repair through LOA5 -->
+<code start="45">
+        verifyErrorCondition(&quot;DehumidifierIneffectiveFault&quot;)
+        if (registry.get(&quot;components.dehumidifier.efficiency&quot;) == 1.0) {
+                logging.critical(&quot;Dehumidifier efficiency did not change&quot;)
+	}
+        if (registry.get(&quot;components.cabin.humidity&quot;) &lt;= 42.0) {
+            logging.critical(&quot;Value not outside valid range&quot;)
+        }
+        triggers.processTriggers(&quot;loa accept&quot;)
+</code>
+<!-- Check that error is gone -->
+<code start="299">
+	verifySystemIsNormal()
+        if (registry.get(&quot;components.dehumidifier.efficiency&quot;) != 1.0) {
+                logging.critical(&quot;Dehumidifier efficiency not restored&quot;)
+	}
+</code>
+</script>

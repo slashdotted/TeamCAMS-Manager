@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<script>
+<!-- Test setup -->
+<duration seconds="300"/>
+<code start="0">
+	execution.speed(5000)
+</code>
+<assistance typ="loa5" start="0"/>
+<!-- Error definition -->
+<error start="1" typ="ox_sensor_upper" diagnostics="true" clear="200" allowLateRepair="true"/>
+<!-- Start repair through LOA5 -->
+<code start="45">
+        verifyErrorCondition(&quot;OxygenSensorFaultUpper&quot;)
+        triggers.processTriggers(&quot;loa accept&quot;)
+</code>
+<!-- Check that error is gone -->
+<code start="299">	verifySystemIsNormal()
+</code>
+</script>
