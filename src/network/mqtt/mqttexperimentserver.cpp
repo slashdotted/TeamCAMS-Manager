@@ -53,6 +53,9 @@ MqttExperimentServer::MqttExperimentServer(std::shared_ptr<MqttTransport> mqtt,
   m_pimpl->m_heartbeatTimer.setInterval(5000);
   connect(&m_pimpl->m_heartbeatTimer, &QTimer::timeout, this,
           &MqttExperimentServer::sendHeartbeat);
+  if (m_pimpl->m_mqttTransport->isConnected()) {
+      onMqttTransportConnected();
+  }
 }
 
 MqttExperimentServer::~MqttExperimentServer() = default;

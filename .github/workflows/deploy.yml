@@ -18,9 +18,9 @@ jobs:
           - os: windows-latest
             platform: windows
             arch: win64_mingw
-          - os: macos-latest
-            platform: macos
-            arch: clang_64
+          #- os: macos-latest
+          #  platform: macos
+          #  arch: clang_64
 
     runs-on: ${{ matrix.os }}
 
