@@ -589,8 +589,8 @@
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="58"/>
-        <source>TeamCAMS Manager 2026.8</source>
-        <translation>Gestionnaire TeamCAMS 2026.8</translation>
+        <source>TeamCAMS Manager 2026.9</source>
+        <translation>Gestionnaire TeamCAMS 2026.9</translation>
     </message>
     <message>
         <location filename="../src/gui/mainwindow.ui" line="84"/>
