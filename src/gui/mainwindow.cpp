@@ -149,8 +149,8 @@ MainWindow::MainWindow(std::shared_ptr<CommunicationManager> s,
   connect(m_pimpl->ui->actionSettings, &QAction::triggered, this,
           &MainWindow::onConfigureApplicationSettingsRequest);
   connect(m_pimpl->ui->actionHelp, &QAction::triggered, [=]() {
-    QString link = tr("https://syscall.org/doku.php/teamcamsmanager");
-    QDesktopServices::openUrl(QUrl(link));
+      QString link = tr("https://teamcams.syscall.org");
+      QDesktopServices::openUrl(QUrl(link));
   });
   m_pimpl->ui->tableView->setContextMenuPolicy(Qt::CustomContextMenu);
   connect(m_pimpl->ui->tableView, &QTableView::customContextMenuRequested, this,

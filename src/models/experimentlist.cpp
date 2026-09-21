@@ -52,7 +52,7 @@ int ExperimentList::rowCount(const QModelIndex &parent) const {
 
 int ExperimentList::columnCount(const QModelIndex &parent) const {
   Q_UNUSED(parent);
-  return 6;
+  return 7;
 }
 
 QVariant ExperimentList::data(const QModelIndex &index, int role) const {
@@ -74,6 +74,10 @@ QVariant ExperimentList::data(const QModelIndex &index, int role) const {
       return QTime(0, 0)
           .addSecs(exp->executionManager()->timestamp() / 1000)
           .toString("hh:mm:ss");
+      break;
+    case 6:
+        return exp->loggingManager()->list().size();
+        break;
     }
     break;
   case Qt::DecorationRole:
@@ -150,8 +154,10 @@ QVariant ExperimentList::headerData(int section, Qt::Orientation orientation,
       return tr("Time");
     case 5:
       return tr("Available?");
+    case 6:
+        return tr("Sessions");
     default:
-      return QVariant();
+        return QVariant();
     }
   }
   return QVariant();

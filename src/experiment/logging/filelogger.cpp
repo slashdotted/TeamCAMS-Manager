@@ -199,6 +199,9 @@ QSet<LogRecord> FileLogger::list() const {
     if (!dt.isValid()) {
       dt = fileInfo.lastModified();
     }
+    if (tokens[0] != m_pimpl->m_exp->name()) {
+        continue;
+    }
     LogRecord record;
     record.key = filename;
     record.datetime = dt;

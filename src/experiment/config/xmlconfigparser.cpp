@@ -353,11 +353,11 @@ void XMLConfigParser::handleScriptElement(const QJsonObject &parameters) {
 
 void XMLConfigParser::handleQuestionElement(const QString &id,
                                             const QString &text) {
-  if (id != "heading" && id != "headingok") {
-    m_pimpl->m_registry->set("automation.survey.question." + id, text, true);
-  } else {
-    m_pimpl->m_registry->set("automation.survey.question." + id, text);
-  }
+    if (id.toLower() != "heading" && id.toLower() != "headingok") {
+        m_pimpl->m_registry->set("automation.survey.question." + id, text, true);
+    } else {
+        m_pimpl->m_registry->set("automation.survey.question." + id, text);
+    }
 }
 
 void XMLConfigParser::handleDurationElement(unsigned int endTime) {

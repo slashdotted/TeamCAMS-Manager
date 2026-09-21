@@ -30,79 +30,104 @@ struct Registry::pimpl {
 
 Registry::~Registry() = default;
 
+static QString canonicalName(const QString &name)
+{
+    auto cname{name.toLower()};
+    if (cname != name) {
+        qWarning() << "Property" << name << "is not lowercase";
+    }
+    return cname;
+}
+
 Registry::Registry(QObject *parent)
     : QObject{parent}, m_pimpl{std::make_unique<pimpl>()} {}
 
-void Registry::set(const QString &name, const QJsonValue &value,
-                   bool initialize, const QString &who) {
-  // Stuck properties will not change value if in the stuck state
-  if (initialize && m_pimpl->m_properties.contains(name)) {
-    throw ReinitializePropertyException{name};
-  } else if (name.toLower() != name) {
-    throw InvalidPropertyNameException{name};
-  } else if (initialize || m_pimpl->m_properties.contains(name)) {
-    if (initialize || !isStuck(name)) {
-      if (initialize || m_pimpl->m_properties[name] != value) {
-        m_pimpl->m_properties[name] = value;
-        if (initialize) {
-          emit propertyAdded();
+void Registry::set(const QString &pName,
+                   const QJsonValue &value,
+                   bool initialize,
+                   const QString &who)
+{
+    auto name{canonicalName(pName)};
+    // Stuck properties will not change value if in the stuck state
+    if (initialize && m_pimpl->m_properties.contains(name)) {
+        throw ReinitializePropertyException{name};
+    } else if (name.toLower() != name) {
+        throw InvalidPropertyNameException{name};
+    } else if (initialize || m_pimpl->m_properties.contains(name)) {
+        if (initialize || !isStuck(name)) {
+            if (initialize || m_pimpl->m_properties[name] != value) {
+                m_pimpl->m_properties[name] = value;
+                if (initialize) {
+                    emit propertyAdded();
+                }
+                emit changed(name, value, who);
+            }
+        } else {
+            emit changed(name, m_pimpl->m_properties[name], who);
         }
-        emit changed(name, value, who);
-      }
     } else {
-      emit changed(name, m_pimpl->m_properties[name], who);
+        throw UndefinedPropertyException{name};
     }
-  } else {
-    throw UndefinedPropertyException{name};
-  }
 }
 
-QJsonValue Registry::get(const QString &name, bool ignoreUndefined) const {
-  if (m_pimpl->m_properties.contains(name))
-    return m_pimpl->m_properties[name];
-  else if (!ignoreUndefined) {
-    throw UndefinedPropertyException{name};
-  } else {
-    return QJsonValue::Null;
-  }
+QJsonValue Registry::get(const QString &pName, bool ignoreUndefined) const
+{
+    auto name{canonicalName(pName)};
+    if (m_pimpl->m_properties.contains(name))
+        return m_pimpl->m_properties[name];
+    else if (!ignoreUndefined) {
+        throw UndefinedPropertyException{name};
+    } else {
+        return QJsonValue::Null;
+    }
 }
 
-void Registry::stick(const QString &name, const QJsonValue &value) {
-  if (!m_pimpl->m_properties.contains(name)) {
-    throw UndefinedPropertyException{name};
-  }
-  m_pimpl->m_stuck_properties[name] = value;
-  emit sticknessChanged(name);
+void Registry::stick(const QString &pName, const QJsonValue &value)
+{
+    auto name{canonicalName(pName)};
+    if (!m_pimpl->m_properties.contains(name)) {
+        throw UndefinedPropertyException{name};
+    }
+    m_pimpl->m_stuck_properties[name] = value;
+    emit sticknessChanged(name);
 }
 
-void Registry::stick(const QString &name) {
-  if (!m_pimpl->m_properties.contains(name)) {
-    throw UndefinedPropertyException{name};
-  }
-  m_pimpl->m_stuck_properties[name] = get(name);
-  emit sticknessChanged(name);
+void Registry::stick(const QString &pName)
+{
+    auto name{canonicalName(pName)};
+    if (!m_pimpl->m_properties.contains(name)) {
+        throw UndefinedPropertyException{name};
+    }
+    m_pimpl->m_stuck_properties[name] = get(name);
+    emit sticknessChanged(name);
 }
 
-void Registry::setAndStick(const QString &name, const QJsonValue &value) {
-  set(name, value);
-  m_pimpl->m_stuck_properties[name] = value;
-  emit sticknessChanged(name);
+void Registry::setAndStick(const QString &pName, const QJsonValue &value)
+{
+    auto name{canonicalName(pName)};
+    set(name, value);
+    m_pimpl->m_stuck_properties[name] = value;
+    emit sticknessChanged(name);
 }
 
-void Registry::unstick(const QString &name) {
-  if (!m_pimpl->m_properties.contains(name)) {
-    throw UndefinedPropertyException{name};
-  }
-  m_pimpl->m_stuck_properties.remove(name);
-  emit sticknessChanged(name);
+void Registry::unstick(const QString &pName)
+{
+    auto name{canonicalName(pName)};
+    if (!m_pimpl->m_properties.contains(name)) {
+        throw UndefinedPropertyException{name};
+    }
+    m_pimpl->m_stuck_properties.remove(name);
+    emit sticknessChanged(name);
 }
 
-bool Registry::isStuck(const QString &name) const {
-  if (!m_pimpl->m_properties.contains(name)) {
-    throw UndefinedPropertyException{name};
-  }
-  return (m_pimpl->m_stuck_properties.contains(name) &&
-          m_pimpl->m_stuck_properties[name] == get(name));
+bool Registry::isStuck(const QString &pName) const
+{
+    auto name{canonicalName(pName)};
+    if (!m_pimpl->m_properties.contains(name)) {
+        throw UndefinedPropertyException{name};
+    }
+    return (m_pimpl->m_stuck_properties.contains(name)
+            && m_pimpl->m_stuck_properties[name] == get(name));
 }
 
 void Registry::dump(const QString &notifyTarget) const {
@@ -113,15 +138,19 @@ void Registry::dump(const QString &notifyTarget) const {
   }
 }
 
-bool Registry::exists(const QString &name) const {
-  return m_pimpl->m_properties.contains(name);
+bool Registry::exists(const QString &pName) const
+{
+    auto name{canonicalName(pName)};
+    return m_pimpl->m_properties.contains(name);
 }
 
-void Registry::touch(const QString &name) const {
-  if (!m_pimpl->m_properties.contains(name)) {
-    throw UndefinedPropertyException{name};
-  }
-  emit changed(name, m_pimpl->m_properties[name], "<system>");
+void Registry::touch(const QString &pName) const
+{
+    auto name{canonicalName(pName)};
+    if (!m_pimpl->m_properties.contains(name)) {
+        throw UndefinedPropertyException{name};
+    }
+    emit changed(name, m_pimpl->m_properties[name], "<system>");
 }
 
 void Registry::reset() {
@@ -151,6 +180,8 @@ bool Registry::isStuck(unsigned int i) const {
 
 unsigned int Registry::count() const { return m_pimpl->m_properties.count(); }
 
-unsigned int Registry::index(const QString &name) const {
-  return m_pimpl->m_properties.keys().indexOf(name);
+unsigned int Registry::index(const QString &pName) const
+{
+    auto name{canonicalName(pName)};
+    return m_pimpl->m_properties.keys().indexOf(name);
 }

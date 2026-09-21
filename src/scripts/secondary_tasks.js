@@ -109,6 +109,7 @@ triggers.activate("n2log", "n2loggingReceived(_ctx)");
 // Messaging system (chat)
 // **************************************************************************************
 registry.set("secondarytasks.messaging.users", connection.connectedUserAliases(), true);
+registry.set("secondarytasks.messaging.delay", 0, true);
 
 triggers.activate("<connection>", "updateUserList(_ctx)");
 triggers.activate("<disconnection>", "updateUserList(_ctx)");
@@ -130,7 +131,12 @@ var chatMessageReceived = function (_ctx) {
     cpayload["sender"] = _ctx.sender;
     cpayload["message"] = _ctx.message;
     cpayload["recipient"] = _ctx.recipient;
-    notify("chat", cpayload);
+    var delay = registry.get("secondarytasks.messaging.delay");
+    if (delay > 0) {
+        scheduler.schedule(_ctx._timestamp + delay, "notify(\"chat\", " + JSON.stringify(cpayload) + ")");
+    } else {
+        notify("chat", cpayload);
+    }
 };
 
 var sendChatMessage = function (sender, message, recipient) {

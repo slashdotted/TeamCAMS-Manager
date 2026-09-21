@@ -20,13 +20,14 @@
 // along with this program.  If not, see <https://www.gnu.org/licenses/>.
 //
 #include "experiment.h"
-#include "config/xmlconfigparser.h"
-#include "gui/mainwindow.h"
-#include "operators/operatoradapter.h"
-#include "simulation/registry.h"
 #include <QFileInfo>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include "config/xmlconfigparser.h"
+#include "experiment/exceptions.h"
+#include "gui/mainwindow.h"
+#include "operators/operatoradapter.h"
+#include "simulation/registry.h"
 
 // Private data
 struct Experiment::pimpl {
@@ -269,10 +270,27 @@ void Experiment::initialize() {
                               m_pimpl->m_simulator->registry()};
       try {
         cparser.parse(m_pimpl->m_script);
+      } catch (const InvalidPropertyNameException &e) {
+          m_pimpl->m_logging_manager->critical("Invalid property name: " + e.what());
+          m_pimpl->m_execution_manager->reset();
+          return;
+      } catch (const UndefinedPropertyException &e) {
+          m_pimpl->m_logging_manager->critical("Undefined property: " + e.what());
+          m_pimpl->m_execution_manager->reset();
+          return;
       } catch (const XMLConfigParserException &e) {
-        m_pimpl->m_logging_manager->critical(e.what());
-        m_pimpl->m_execution_manager->reset();
-        return;
+          m_pimpl->m_logging_manager->critical(e.what());
+          m_pimpl->m_execution_manager->reset();
+          return;
+
+      } catch (const ReinitializePropertyException &e) {
+          m_pimpl->m_logging_manager->critical("Reinitializing property: " + e.what());
+          m_pimpl->m_execution_manager->reset();
+          return;
+      } catch (...) {
+          m_pimpl->m_logging_manager->critical("Unknown critical exception");
+          m_pimpl->m_execution_manager->reset();
+          return;
       }
     } else {
       m_pimpl->m_scripting_manager->include("cams.js");
